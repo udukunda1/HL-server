@@ -161,6 +161,9 @@ export const addMed = async (req, res, next) => {
     }
 
     pharma.inventory.medicines.push(medicine);
+    const date = new Date();
+    const formattedDate = date.toISOString().split('T')[0];
+    pharma.inventory.updatedAt = formattedDate;
     await pharma.save();
     res.json({message: 'done'});
     }
@@ -189,6 +192,9 @@ export const addService = async (req, res, next) => {
     }
 
     pharma.avairableServices.push(service);
+    const date = new Date();
+    const formattedDate = date.toISOString().split('T')[0];
+    pharma.inventory.updatedAt = formattedDate;
     await pharma.save();
     res.json({message: 'done'});
     }
@@ -211,6 +217,9 @@ export const DeleteMed = async (req, res, next) => {
             return res.status(400).json({err: 'error trying to delete unavailable medicine'});
         }
         pharma.inventory.medicines.pull(medicine);
+        const date = new Date();
+        const formattedDate = date.toISOString().split('T')[0];
+        pharma.inventory.updatedAt = formattedDate;
         await pharma.save();
         res.json({message: 'deleted'});
     }
@@ -234,6 +243,9 @@ export const DeleteService = async (req, res, next) => {
             return res.status(400).json({err: 'error trying to delete unavailable service'});
         }
         pharma.avairableServices.pull(service);
+        const date = new Date();
+        const formattedDate = date.toISOString().split('T')[0];
+        pharma.inventory.updatedAt = formattedDate;
         await pharma.save();
         res.json({message: 'deleted'});
     }
